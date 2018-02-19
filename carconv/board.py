@@ -49,10 +49,10 @@ class File_Synchronizer(Thread):
         self.files = []
 
     def _sync_file(self, filename):
-        subprocess.call("rsync %s@%s:%s %s" % (self.target.user,
-                                               self.target.address,
-                                               filename,
-                                               self._local_file_name(filename)), shell=True)
+        subprocess.call("rsync --inplace %s@%s:%s %s" % (self.target.user,
+                                                         self.target.address,
+                                                         filename,
+                                                         self._local_file_name(filename)), shell=True)
 
     def get_remote_file(self, filename):
         self._sync_file(filename)
