@@ -20,7 +20,7 @@ class Board:
         self.address, self.port, self.tunnel = tunnel_builder.build_tunnel(remote, target)
         # self.__fs = fs.open_fs \
         #    ("ssh://%s:%s@%s:%d//" % (target.user, target.password, address, port))
-        self.synchronized = File_Synchronizer()
+        self.synchronized = File_Synchronizer(target)
         self.synchronized.run()
 
     def stop(self):
