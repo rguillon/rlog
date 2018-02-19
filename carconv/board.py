@@ -32,6 +32,15 @@ class Board:
         return self.synchronized.get_remote_file(LOOP_SYSLOG_FILENAME[loop])
 
 
+def follow(thefile):
+    thefile.seek(0, 2)
+    while True:
+        line = thefile.readline()
+        if not line:
+            # time.sleep(0.1)
+            continue
+        yield line
+
 class File_Synchronizer(Thread):
 
     def __init__(self, target):
@@ -48,7 +57,7 @@ class File_Synchronizer(Thread):
     def get_remote_file(self, filename):
         self._sync_file(filename)
         self.files.append(filename)
-        return open(self._local_file_name(filename))
+        return follow(open(self._local_file_name(filename)))
 
     def _local_file_name(self, filename):
         return "%s/%s%s" % (TEMP_FILES_DIR, self.target.address, filename)
