@@ -8,7 +8,7 @@ def build_tunnel(remote, target):
 
     ret = []
     if 'localhost' in remote.address:
-        ret = target.host, target.port, None
+        ret = target.address, target.port, None
     else:
         port += 1
         forwarder = sshtunnel.SSHTunnelForwarder(
