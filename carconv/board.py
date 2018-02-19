@@ -29,7 +29,7 @@ class Board:
         # self.synchronized.
 
     def get_loop_log(self, loop):
-        return self.__fs.open(LOOP_SYSLOG_FILENAME[loop])
+        return self.synchronized.get_remote_fie(LOOP_SYSLOG_FILENAME[loop])
 
 
 class File_Synchronizer(Thread):
@@ -59,5 +59,5 @@ class File_Synchronizer(Thread):
         while True:
             print "pwet"
             for filename in self.files:
-                self._sync_file(file)
+                self._sync_file(filename)
             time.sleep(1)

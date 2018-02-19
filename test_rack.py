@@ -11,5 +11,11 @@ rack = Rack(host=Target(address="localhost", port=22, user="renaud", password="s
 
 #  "B": Target(address="server2", port=22, user="renaud", password="server2")})
 
-time.sleep(1)
+syslog = rack.get_board("A").get_loop_log("SYS")
+
+while True:
+    for line in syslog:
+        print(line)
+    time.sleep(1)
+
 rack.stop()
