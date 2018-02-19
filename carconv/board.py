@@ -10,6 +10,8 @@ LOOP_SYSLOG_FILENAME = {"SL": "/var/log/css_sl.log",
                         "SYS": "/var/log/syslog",
                         "TEST": "/home/renaud/test.txt"}
 
+TEMP_FILES_DIR = "tmp"
+
 
 class Board:
 
@@ -32,11 +34,30 @@ class Board:
 
 class File_Synchronizer(Thread):
 
-    def __init__(self):
+    def __init__(self, target):
         Thread.__init__(self)
+        self.target = target
+        self.files = []
+
+    def _sync_file(self, filename):
+        subprocess.call("rsync %s:%s@%s:%s %s" % (self.target.user,
+                                                  self.target.password,
+                                                  self.target.address,
+                                                  filename,
+                                                  self._local_file_name(filename)), shell=True)
+
+    def get_remote_file(self, filename):
+        self._sync_file(filename)
+        self.files.append(filename)
+        return open(self._local_filename(filename))
+
+    def _local_file_name(self, filename):
+        return "%s/%s/%s" % (TEMP_FILES_DIR, self.target.address, filename)
+
 
     def run(self):
         while True:
             print "pwet"
-            subprocess.call("rsync renaud@server2:/var/log/syslog .", shell=True)
+            for filename in self.files:
+                self._sync_file(file)
             time.sleep(1)
