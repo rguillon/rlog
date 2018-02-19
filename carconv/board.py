@@ -14,6 +14,7 @@ LOOP_SYSLOG_FILENAME = {"SL": "/var/log/css_sl.log",
 class Board:
 
     def __init__(self, remote, target):
+        print "Fuck"
         self.address, self.port, self.tunnel = tunnel_builder.build_tunnel(remote, target)
         # self.__fs = fs.open_fs \
         #    ("ssh://%s:%s@%s:%d//" % (target.user, target.password, address, port))
@@ -36,5 +37,6 @@ class File_Synchronizer(Thread):
 
     def run(self):
         while True:
-            subprocess.call("rsync renaud@server2:/var/log/syslog .")
+            print "pwet"
+            subprocess.call("rsync renaud@server2:/var/log/syslog .", shell=True)
             time.sleep(1)
