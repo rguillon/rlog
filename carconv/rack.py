@@ -18,3 +18,7 @@ class Rack:
 
     def get_board(self, name):
         return self.__boards[name]
+
+    def stop(self):
+        for name, board in self.__boards.iteritems():
+            board.stop()

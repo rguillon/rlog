@@ -8,7 +8,7 @@ def build_tunnel(remote, target):
 
     ret = []
     if 'localhost' in remote.address:
-        ret = target.host, target.port
+        ret = target.host, target.port, None
     else:
         port += 1
         forwarder = sshtunnel.SSHTunnelForwarder(
@@ -18,5 +18,5 @@ def build_tunnel(remote, target):
             remote_bind_address=(target.address, target.port),
             local_bind_address=('127.0.0.1', port))
         forwarder.start()
-        ret = ('127.0.0.1', port)
+        ret = '127.0.0.1', port, forwarder
     return ret
