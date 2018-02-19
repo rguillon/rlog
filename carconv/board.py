@@ -21,7 +21,7 @@ class Board:
         # self.__fs = fs.open_fs \
         #    ("ssh://%s:%s@%s:%d//" % (target.user, target.password, address, port))
         self.synchronized = File_Synchronizer(target)
-        self.synchronized.run()
+        self.synchronized.start()
 
     def stop(self):
         if self.tunnel is not None:
