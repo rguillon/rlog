@@ -49,7 +49,7 @@ class File_Synchronizer(Thread):
     def get_remote_file(self, filename):
         self._sync_file(filename)
         self.files.append(filename)
-        return open(self._local_filename(filename))
+        return open(self._local_file_name(filename))
 
     def _local_file_name(self, filename):
         return "%s/%s/%s" % (TEMP_FILES_DIR, self.target.address, filename)
