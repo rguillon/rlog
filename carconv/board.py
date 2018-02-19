@@ -52,7 +52,7 @@ class File_Synchronizer(Thread):
         return open(self._local_file_name(filename))
 
     def _local_file_name(self, filename):
-        return "%s/%s/%s" % (TEMP_FILES_DIR, self.target.address, filename)
+        return "%s/%s%s" % (TEMP_FILES_DIR, self.target.address, filename)
 
 
     def run(self):
