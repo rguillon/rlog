@@ -29,7 +29,7 @@ class Board:
         # self.synchronized.
 
     def get_loop_log(self, loop):
-        return self.synchronized.get_remote_fie(LOOP_SYSLOG_FILENAME[loop])
+        return self.synchronized.get_remote_file(LOOP_SYSLOG_FILENAME[loop])
 
 
 class File_Synchronizer(Thread):
